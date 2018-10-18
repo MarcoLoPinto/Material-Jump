@@ -5,6 +5,8 @@ class Jumper{
 		this.img = img;
 		this.angle = 0;
 		
+		this.isDead = false;
+		
 		//Depends on the ratio
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
@@ -27,11 +29,11 @@ class Jumper{
 		let unitAngle = this.MAX_VELOCITY/(this.MAX_ANGLE*(Math.PI/180));
 		
 		if(Math.abs(this.velocity) <= this.MAX_VELOCITY) this.velocity += this.gravityUnit;
-		this.y += this.velocity;
+		if(!this.isDead) this.y += this.velocity;
 		if(this.y>this.minHeight) this.y = this.minHeight;
 		else if(this.y<this.maxHeight) this.y = this.maxHeight;
 		
-		this.angle = this.velocity/unitAngle;
+		if(!this.isDead) this.angle = this.velocity/unitAngle;
 	}
 	
 	draw(ctx){
@@ -69,5 +71,7 @@ class Jumper{
 		
 		this.dimension = dimension;
 	}
+	
+	
 	
 }
