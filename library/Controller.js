@@ -5,13 +5,11 @@ class Controller{
 	}
 	
 	keydown(callback){
-		$( this.scope ).on('keydown',callback);
-		$( this.scope ).on('dragstart',callback);
+		$( this.scope ).on('keydown touchstart',callback);
 	}
 	
 	keyup(callback){
-		$( this.scope ).on('keyup',callback);
-		$( this.scope ).on('dragend',callback);
+		$( this.scope ).on('keyup touchend',callback);
 	}
 	
 	//NB: [key => callback(key,this.pressed)] to pass multiple args callback

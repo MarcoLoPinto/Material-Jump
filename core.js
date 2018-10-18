@@ -27,7 +27,7 @@ $( window ).resize(() => {
 
 
 controller.keydown(function(key,press){
-	if( (key.which == 32 || key.touches[0]) && !console.pressed){
+	if( (key.which == 32) && !console.pressed){
 		console.pressed = true;
 		jumper.jump();
 	}
