@@ -1,8 +1,12 @@
 class Jumper{
 	
-	constructor(img,x,y,dimension,minHeight,maxHeight,gravityUnit){
+	constructor(bodyImg,rightArmImg,rightLegImg,leftArmImg,leftLegImg,x,y,dimension,minHeight,maxHeight,gravityUnit){
 		//Not depending on the ratio
-		this.img = img;
+		this.bodyImg = bodyImg;
+		this.rightArmImg = rightArmImg;
+		this.leftArmImg = leftArmImg;
+		this.rightLegImg = rightLegImg;
+		this.leftLegImg = leftLegImg;
 		this.angle = 0;
 		
 		this.isDead = false;
@@ -38,7 +42,7 @@ class Jumper{
 	}
 	
 	draw(ctx){
-		if(this.img === undefined){
+		if(this.bodyImg === undefined){
 			ctx.save();
 			ctx.beginPath();
 			ctx.fillStyle = "black";
@@ -58,10 +62,49 @@ class Jumper{
 			ctx.save();
 			ctx.beginPath();
 			
-			ctx.translate(this.x,this.y);
-			ctx.rotate(this.angle);
-			ctx.drawImage(this.img,-this.dimension/2,-this.dimension/2,this.dimension,this.dimension);
+			let bodyDimension = this.dimension*2;
+			let armDimensionX = bodyDimension*0.13*(6/5);
+			let armDimensionY = bodyDimension*0.35*(6/5);
+			let legDimensionX = bodyDimension*0.16*(6/5);
+			let legDimensionY = bodyDimension*0.3*(6/5);
 			
+			ctx.translate(this.x,this.y);
+			//BODY
+			ctx.drawImage(this.bodyImg,-bodyDimension/2,-bodyDimension/2,bodyDimension,bodyDimension);
+			//ARM DX
+			ctx.translate(-armDimensionX*(5/4),-armDimensionY/5);
+			ctx.rotate(this.angle);
+			ctx.translate(0,armDimensionY/4);
+			ctx.drawImage(this.rightArmImg,-armDimensionX/2,-armDimensionY/2,armDimensionX,armDimensionY);
+			//ARM SX
+			ctx.translate(0,-armDimensionY/4);
+			ctx.rotate(-this.angle);
+			ctx.translate(+2*armDimensionX*(5/4),0);
+			ctx.rotate(-this.angle);
+			ctx.translate(0,armDimensionY/4);
+			ctx.drawImage(this.leftArmImg,-armDimensionX/2,-armDimensionY/2,armDimensionX,armDimensionY);
+			//LEG DX
+			ctx.translate(0,-armDimensionY/4);
+			ctx.rotate(this.angle);
+			ctx.translate(-2*armDimensionX*(5/4)+legDimensionX/4,bodyDimension*(13/24));
+			ctx.rotate(this.angle);
+			ctx.translate(0,legDimensionY/4);
+			
+			ctx.drawImage(this.rightLegImg,-legDimensionX/2,-legDimensionY/2,legDimensionX,legDimensionY);
+			//LEG SX
+			ctx.translate(0,-legDimensionY/4);
+			ctx.rotate(-this.angle);
+			ctx.translate(2*armDimensionX*(5/4)-2*legDimensionX/4,0);
+			ctx.rotate(-this.angle);
+			ctx.translate(0,legDimensionY/4);
+			ctx.drawImage(this.leftLegImg,-legDimensionX/2,-legDimensionY/2,legDimensionX,legDimensionY);
+			/*
+			ctx.translate(this.x,this.y);
+			
+			ctx.rotate(this.angle);
+			ctx.drawImage(this.bodyImg,-this.dimension/2,-this.dimension/2,this.dimension,this.dimension);
+			ctx.rotate(-this.angle);
+			*/
 			ctx.restore();
 		}
 		if(this.velocity == 0) console.log(window.innerWidth/this.y);
