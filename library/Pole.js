@@ -59,6 +59,12 @@ class Pole{
 	onResize(updatedWidth){ //Scaling all factors generating a ratio with the width
 		let ratio = (updatedWidth/this.width);
 		
+		for(var i = 0; i<this.poles.length; i++){
+			this.poles[i].position = this.poles[i].position*ratio;
+			this.poles[i].gap = this.poles[i].gap*ratio;
+			this.poles[i].hole = this.poles[i].hole*ratio;
+		}
+		
 		this.width = this.width*ratio;
 		this.height = this.height*ratio;
 		this.minGap = this.minGap*ratio;
@@ -66,6 +72,7 @@ class Pole{
 		this.velocity = this.velocity*ratio;
 		this.startX = this.startX*ratio;
 		this.endX = this.endX*ratio;
+		
 	}
 	
 }

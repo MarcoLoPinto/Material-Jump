@@ -34,6 +34,7 @@ class Jumper{
 		else if(this.y<this.maxHeight) this.y = this.maxHeight;
 		
 		if(!this.isDead) this.angle = this.velocity/unitAngle;
+		else this.angle += 0.1;
 	}
 	
 	draw(ctx){
@@ -47,11 +48,20 @@ class Jumper{
 			
 			//ctx.arc(this.x,this.y,this.dimension,0,2*Math.PI);
 			
-			ctx.moveTo(this.dimension, 0);
-			ctx.lineTo(- this.dimension,- this.dimension);
-			ctx.lineTo(- this.dimension,+ this.dimension);
+			ctx.moveTo(this.dimension/2, 0);
+			ctx.lineTo(- this.dimension/2,- this.dimension/2);
+			ctx.lineTo(- this.dimension/2,+ this.dimension/2);
 			
 			ctx.fill();
+			ctx.restore();
+		} else {
+			ctx.save();
+			ctx.beginPath();
+			
+			ctx.translate(this.x,this.y);
+			ctx.rotate(this.angle);
+			ctx.drawImage(this.img,-this.dimension/2,-this.dimension/2,this.dimension,this.dimension);
+			
 			ctx.restore();
 		}
 		if(this.velocity == 0) console.log(window.innerWidth/this.y);
