@@ -1,4 +1,4 @@
-const imageArray = ["imgs/player.png","imgs/jumper.png","imgs/rightArm.png","imgs/rightLeg.png","imgs/leftArm.png","imgs/leftLeg.png"];
+const imageArray = ["imgs/player.png","imgs/jumper.png","imgs/rightArm.png","imgs/rightLeg.png","imgs/leftArm.png","imgs/leftLeg.png","imgs/background.png","imgs/pole.png","imgs/nullarea.png"];
 
 var ctxId = document.getElementById("ctx");
 
@@ -7,9 +7,12 @@ loadImages(imageArray,images=>{
 	//SETUP
 	console.log(images);
 	var game = new FitViewport(ctxId,ctxId.getContext("2d"),(9/16),16,"white","gray",window.innerWidth,window.innerHeight);
-	var jumper = new Jumper(images["jumper"],images["rightArm"],images["rightLeg"],images["leftArm"],images["leftLeg"],game.getCanvas().width/2,game.getCanvas().height/2,game.getDimension()*2,game.getCanvas().height,0,game.getDimension()/30);
+	var jumper = new Jumper(images["jumper"],images["rightArm"],images["rightLeg"],images["leftArm"],images["leftLeg"],game.getCanvas().width/2,game.getCanvas().height/2,game.getDimension()*(3/2),game.getCanvas().height,0,game.getDimension()/30);
 	var controller = new Controller(document);
-	var pole = new Pole(game.getDimension()*2,game.getCanvas().height,game.getDimension()*10,game.getDimension()*10,game.getDimension()/10,120,game.getCanvas().width,-2*game.getDimension());
+	var pole = new Pole(images["pole"],game.getDimension()*2,game.getCanvas().height,game.getDimension()*10,game.getDimension()*10,game.getDimension()/10,120,game.getCanvas().width,-2*game.getDimension());
+	var backgroundClass = new Background(game.getCanvas().width,0,-game.getDimension()/10);
+	
+	document.body.style = "background-image: url("+images["nullarea"].src+")";
 	
 	//GAME
 	window.requestAnimationFrame(drawCoreFunction);
@@ -19,6 +22,7 @@ loadImages(imageArray,images=>{
 		pole.update();
 		jumper.update();
 		
+		backgroundClass.draw(game.getContext(),images["background"],game.getCanvas().width,game.getCanvas().height);
 		pole.draw(game.getContext());
 		jumper.draw(game.getContext());
 		
