@@ -63,8 +63,9 @@ loadImages(imageArray,images=>{
 	//RESIZING
 	$( window ).resize(() => {
 	  game.resizeCanvas(window.innerWidth,window.innerHeight);
-	  jumper.onResize(game.getDimension()*2);
+	  jumper.onResize(game.getDimension()*(3/2));
 	  pole.onResize(game.getDimension()*2);
+	  backgroundClass.onResize(-game.getDimension()/10);
 	});
 	
 	

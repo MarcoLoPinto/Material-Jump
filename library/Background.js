@@ -20,5 +20,12 @@ class Background{
 		ctx.restore();
 	}
 	
+	onResize(velocity){
+		this.startX = this.startX*(velocity/this.velocity);
+		this.endX = this.endX*(velocity/this.velocity);;
+		this.x = this.x*(velocity/this.velocity);;
+		this.velocity = velocity;
+	}
+	
 	
 }
