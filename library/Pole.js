@@ -31,7 +31,10 @@ class Pole{
 		} else this.frequencyStart++;
 		
 		for(var i = 0; i<this.poles.length; i++){
-			if(this.poles[i].position <= this.endX) this.poles.shift(); //because is FIFO
+			if(this.poles[i].position <= this.endX){
+				this.poles.shift(); //because is FIFO
+				i--;
+			}
 			else{
 				this.poles[i].position -= this.velocity;
 			}
