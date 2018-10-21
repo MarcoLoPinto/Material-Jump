@@ -9,7 +9,7 @@ class Jumper{
 		this.leftLegImg = leftLegImg;
 		this.angle = 0;
 		
-		this.isDead = false;
+		//this.isDead = false;
 		
 		//Depends on the ratio
 		this.minHeight = minHeight;
@@ -21,6 +21,10 @@ class Jumper{
 		this.MAX_VELOCITY = gravityUnit*20;
 		this.MAX_ANGLE = 45;
 		this.dimension = dimension;
+		
+		//restarting level
+		this.startingX = x;
+		this.startingY = y;
 	}
 	
 	jump(){
@@ -107,7 +111,6 @@ class Jumper{
 			*/
 			ctx.restore();
 		}
-		if(this.velocity == 0) console.log(window.innerWidth/this.y);
 		
 	}
 	
@@ -125,6 +128,12 @@ class Jumper{
 		this.dimension = dimension;
 	}
 	
+	reset(){
+		this.x = this.startingX;
+		this.y = this.startingY;
+		this.angle = 0;
+		this.velocity = 0;
+	}
 	
 	
 }

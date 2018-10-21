@@ -95,4 +95,8 @@ class Pole{
 		
 	}
 	
+	reset(){
+		this.poles = [];
+	}
+	
 }
