@@ -97,6 +97,7 @@ class Pole{
 	
 	reset(){
 		this.poles = [];
+		this.frequencyStart = this.frequency;
 	}
 	
 }

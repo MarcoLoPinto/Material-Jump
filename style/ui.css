@@ -1,0 +1,17 @@
+.button{
+	background-color: green;
+	border: none;
+	color: white;
+	font-size: 4vh;
+	border-radius: 0%;
+	text-align: center;
+}
+
+.popup{
+	background-color: purple;
+	border-radius: 10%;
+}
+
+.popupText{
+	font-size: 6vh;
+}

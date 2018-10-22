@@ -3,7 +3,7 @@ class Game{
 		this.ctx = ctxId.getContext("2d");
 		this.images = images;
 		
-		this.view = new FitViewport(ctxId,this.ctx,ratio,16,"white","gray",window.innerWidth,window.innerHeight);
+		this.view = new FitViewport(ctxId,this.ctx,ratio,16,"white","gray",initWidth,initHeight);
 		this.jumper = new Jumper(images["jumper"],images["rightArm"],images["rightLeg"],images["leftArm"],images["leftLeg"],this.view.getCanvas().width/2,this.view.getCanvas().height/2,this.view.getDimension()*(3/2),this.view.getCanvas().height,0,this.view.getDimension()/30);
 		this.pole = new Pole(images["pole"],this.view.getDimension()*2,this.view.getCanvas().height,this.view.getDimension()*10,this.view.getDimension()*10,this.view.getDimension()/10,120,this.view.getCanvas().width,-2*this.view.getDimension());
 		this.backgroundClass = new Background(this.view.getCanvas().width,0,-this.view.getDimension()/50);
@@ -31,13 +31,11 @@ class Game{
 		this.jumper.update();
 	}
 	
-	onResize(){
-		$( window ).resize(() => {
-		  this.view.resizeCanvas(window.innerWidth,window.innerHeight);
-		  this.jumper.onResize(this.view.getDimension()*(3/2));
-		  this.pole.onResize(this.view.getDimension()*2);
-		  this.backgroundClass.onResize(-this.view.getDimension()/50);
-		});
+	onResize(functionWidth,functionHeight){
+		this.view.resizeCanvas(functionWidth(),functionHeight());
+		this.jumper.onResize(this.view.getDimension()*(3/2));
+		this.pole.onResize(this.view.getDimension()*2);
+		this.backgroundClass.onResize(-this.view.getDimension()/50);
 	}
 	
 	reset(){

@@ -1,13 +1,20 @@
 const imageArray = ["imgs/player.png","imgs/jumper.png","imgs/rightArm.png","imgs/rightLeg.png","imgs/leftArm.png","imgs/leftLeg.png","imgs/background.png","imgs/pole.png","imgs/nullarea.png"];
 
 var ctxId = document.getElementById("ctx");
+var screenWidth = () => window.innerWidth ? window.innerWidth : $(window).width();
+var screenHeight = () => window.innerHeight ? window.innerHeight : $(window).height();
 
 //LOADING
 loadImages(imageArray,images=>{
 	//SETUP
 	console.log(images);
-	var game = new Game(ctxId,(9/16),"white","gray",window.innerWidth,window.innerHeight,images);
+	var game = new Game(ctxId,(9/16),"white","gray",screenWidth(),screenHeight(),images);
 	var controller = new Controller(document);
+	MenuSetup.createPopupMenu("popupDeath","menuScreen","popup flex-centered inline-column",screenWidth()/2,screenHeight()/2,game.view.getDimension()*8,game.view.getDimension()*8);
+	MenuSetup.createP("popupDeath","popupText","You Died!");
+	MenuSetup.createButton("retry","popupDeath","button","Retry",()=>{
+		game.reset();
+	});
 	
 	//GAME
 	window.requestAnimationFrame(drawCoreFunction);
@@ -45,12 +52,10 @@ loadImages(imageArray,images=>{
 	
 	
 	//RESIZING
-	game.onResize();
-	
-	
-	//LISTENERS
-	document.getElementById("restart").addEventListener("click",()=>{
-		game.reset();
+	$( window ).resize(() => {
+		game.onResize(screenWidth,screenHeight);
+		MenuSetup.resizePopup("popupDeath",screenWidth()/2,screenHeight()/2,game.view.getDimension()*8,game.view.getDimension()*8);
 	});
+	
 	
 });

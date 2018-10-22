@@ -24,6 +24,14 @@ body{
   align-items: center; 
 }
 
+.inline-column{
+	flex-direction: column;
+}
+
+.inline-row{
+	flex-direction: row;
+}
+
 canvas {	
 	
 	border: 0px;
