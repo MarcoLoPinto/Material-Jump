@@ -12,7 +12,7 @@ class FitViewport {
 			this.ctx.mozImageSmoothingEnabled = false;  // firefox
 			this.ctx.imageSmoothingEnabled = false;
 		}
-		this.resizeCanvas(initWidth,initHeight); //init dimensions
+		this.browserZoomLevel = this.resizeCanvas(initWidth,initHeight); //init dimensions
 	}
 	
 	resizeCanvas(width,height){
@@ -54,6 +54,10 @@ class FitViewport {
 	
 	getDimension(){
 		return (this.canvas.width/this.unit);
+	}
+	
+	getBrowserZoomLevel(){
+		return this.browserZoomLevel;
 	}
 	
 	getCanvas(){
