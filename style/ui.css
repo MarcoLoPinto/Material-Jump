@@ -1,5 +1,5 @@
 .button{
-	background-color: green;
+	background-color:  rgba(0, 253, 227, 0.4);
 	border: none;
 	color: white;
 	font-size: 4vh;
@@ -8,10 +8,15 @@
 }
 
 .popup{
-	background-color: purple;
+	background-color: rgba(215, 60, 255, 0.7);
 	border-radius: 10%;
+	border-style: solid;
+    border-width: 0.5vh;
+	border-color: rgba(215, 60, 255, 0.8);
 }
 
 .popupText{
+	color:  rgba(0, 253, 227, 0.4);
 	font-size: 6vh;
+	font-family: Arial, Helvetica, sans-serif;
 }
