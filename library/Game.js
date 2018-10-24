@@ -7,6 +7,7 @@ class Game{
 		this.jumper = new Jumper(images["jumper"],images["rightArm"],images["rightLeg"],images["leftArm"],images["leftLeg"],this.view.getCanvas().width/2,this.view.getCanvas().height/2,this.view.getDimension()*(3/2),this.view.getCanvas().height,0,this.view.getDimension()/30);
 		this.pole = new Pole(images["pole"],this.view.getDimension()*2,this.view.getCanvas().height,this.view.getDimension()*10,this.view.getDimension()*10,this.view.getDimension()/10,120,this.view.getCanvas().width,-2*this.view.getDimension());
 		this.backgroundClass = new Background(this.view.getCanvas().width,0,-this.view.getDimension()/50);
+		this.scoreEngine = new ScoreEngine();
 		
 		document.body.style = "background-image: url("+images["nullarea"].src+")";
 		
@@ -43,19 +44,29 @@ class Game{
 		this.selectScreen(["menuScreen"],["gameScreen"]);
 		this.jumper.reset();
 		this.pole.reset();
+		this.scoreEngine.resetRoundScore();
+		MenuSetup.setValue("scoreTextValue",this.scoreEngine.roundScore);
 	}
 	
 	gameOver(){
 		this.jumper.velocity = -this.jumper.MAX_VELOCITY;
 		this.isGameOver = true;
+		this.scoreEngine.checkAndSetForNewRecord();
+		MenuSetup.setValue("bestScore","Best Score:" + this.scoreEngine.getBestScore());
 		this.selectScreen([],["menuScreen"]);
 	}
 	
 	checkCollisions(){
+		//collision mask
+		var bottomX = this.jumper.x-this.jumper.dimension/2;
+		var bottomY = this.jumper.y+this.jumper.dimension*(3/4);
+		var topX = this.jumper.x+this.jumper.dimension/2;
+		var topY = this.jumper.y-this.jumper.dimension*(3/4);
+		
 		for(var i = 0; i < this.pole.poles.length; i++){
-			if(( (this.jumper.x+this.jumper.dimension/2) >= this.pole.poles[i].position) && ((this.jumper.x-this.jumper.dimension/2) <= (this.pole.poles[i].position+this.pole.width))){
+			if(( (topX) >= this.pole.poles[i].position) && ((bottomX) <= (this.pole.poles[i].position+this.pole.width))){
 				//console.log("checking");
-				if( !((this.jumper.y-this.jumper.dimension*(3/4)) >= this.pole.poles[i].gap && (this.jumper.y+this.jumper.dimension) <= (this.pole.poles[i].gap+this.pole.poles[i].hole)) ){
+				if( !((topY) >= this.pole.poles[i].gap && (bottomY) <= (this.pole.poles[i].gap+this.pole.poles[i].hole)) ){
 					//console.log("collision");
 					this.gameOver();
 					return true;
@@ -66,7 +77,18 @@ class Game{
 			this.gameOver();
 			return true;
 		}
+		
 		return false;
+	}
+	
+	
+	checkPolePositionsScore(){
+		for(var i = 0; i < this.pole.poles.length ; i++){
+			if(this.pole.checkIfSurpassed(this.pole.poles[i],this.jumper.x)){
+				this.scoreEngine.incrementRoundScore(1);
+				MenuSetup.setValue("scoreTextValue",this.scoreEngine.roundScore);
+			}
+		}
 	}
 	
 	selectScreen(toHide,toShow){

@@ -22,12 +22,17 @@ class MenuSetup{
 		btn.addEventListener("click",callback);
 	}
 	
-	static createP(parentId,styleClass,text){
+	static createP(id,parentId,styleClass,text){
 		var p = document.createElement("p");
 		var t = document.createTextNode(text);
 		p.appendChild(t);
+		p.setAttribute("id", id);
 		p.setAttribute("class", styleClass);
 		document.getElementById(parentId).appendChild(p);
+	}
+	
+	static setValue(id,v){
+		document.getElementById(id).innerHTML = v;
 	}
 	
 	static resizePopup(id,x,y,width,height){

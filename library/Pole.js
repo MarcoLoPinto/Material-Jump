@@ -26,7 +26,7 @@ class Pole{
 			//console.log("dimension gap: "+randomGap);
 			
 			this.frequencyStart = 0;
-			this.poles.push({position:this.startX,gap:randomGap,hole:randomDimension});
+			this.poles.push({position:this.startX,gap:randomGap,hole:randomDimension,surpassed:false});
 			
 		} else this.frequencyStart++;
 		
@@ -74,6 +74,14 @@ class Pole{
 		}
 		*/
 		
+	}
+	
+	checkIfSurpassed(pole,x){
+		if((pole.position+this.width) < x && pole.surpassed == false){
+			pole.surpassed = true;
+			return true;
+		}
+		return false;
 	}
 	
 	onResize(updatedWidth){ //Scaling all factors generating a ratio with the width

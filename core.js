@@ -10,8 +10,13 @@ loadImages(imageArray,images=>{
 	console.log(images);
 	var game = new Game(ctxId,(9/16),"white","gray",screenWidth(),screenHeight(),images);
 	var controller = new Controller(document);
+	
+	MenuSetup.createP("scoreText","scoreScreen","scoreText","Score:");
+	MenuSetup.createP("scoreTextValue","scoreScreen","scoreText","0");
+	
 	MenuSetup.createPopupMenu("popupDeath","menuScreen","popup flex-centered inline-column",screenWidth()/2,screenHeight()/2,game.view.getCanvas().width*(3/4)/game.view.getBrowserZoomLevel(),game.view.getCanvas().width*(3/4)/game.view.getBrowserZoomLevel());
-	MenuSetup.createP("popupDeath","popupText","You Died!");
+	MenuSetup.createP("deathText","popupDeath","popupText","You Died!");
+	MenuSetup.createP("bestScore","popupDeath","popupText","Best Score:0");
 	MenuSetup.createButton("retry","popupDeath","button","Retry",()=>{
 		game.reset();
 	});
@@ -28,6 +33,7 @@ loadImages(imageArray,images=>{
 		
 		if(!game.isGameOver){
 			game.pole.update();
+			game.checkPolePositionsScore();
 			game.checkCollisions();
 		}
 		
