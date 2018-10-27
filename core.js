@@ -4,11 +4,12 @@ var ctxId = document.getElementById("ctx");
 var screenWidth = () => window.innerWidth ? window.innerWidth : $(window).width();
 var screenHeight = () => window.innerHeight ? window.innerHeight : $(window).height();
 
+var game;
 //LOADING
 loadImages(imageArray,images=>{
 	//SETUP
 	console.log(images);
-	var game = new Game(ctxId,(9/16),"white","gray",screenWidth(),screenHeight(),images);
+	game = new Game(ctxId,(9/16),"white","gray",screenWidth(),screenHeight(),images);
 	var controller = new Controller(document);
 	
 	MenuSetup.createP("scoreText","scoreScreen","scoreText","Score:");

@@ -57,7 +57,7 @@ class FitViewport {
 	}
 	
 	getBrowserZoomLevel(){
-		return this.browserZoomLevel;
+		return (window.devicePixelRatio || 1);
 	}
 	
 	getCanvas(){

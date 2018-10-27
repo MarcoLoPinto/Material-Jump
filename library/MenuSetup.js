@@ -11,7 +11,7 @@ class MenuSetup{
 	
 	static createButton(id,parentId,styleClass,text,callback){
 		var btn = document.createElement("BUTTON");
-
+		
 		var t = document.createTextNode(text);
 		btn.setAttribute("class", styleClass);
 		btn.appendChild(t);

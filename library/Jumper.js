@@ -8,6 +8,9 @@ class Jumper{
 		this.rightLegImg = rightLegImg;
 		this.leftLegImg = leftLegImg;
 		this.angle = 0;
+		//restarting level
+		this.startingX = x;
+		this.startingY = y;
 		
 		//this.isDead = false;
 		
@@ -21,10 +24,6 @@ class Jumper{
 		this.MAX_VELOCITY = gravityUnit*20;
 		this.MAX_ANGLE = 45;
 		this.dimension = dimension;
-		
-		//restarting level
-		this.startingX = x;
-		this.startingY = y;
 	}
 	
 	jump(){
@@ -63,15 +62,46 @@ class Jumper{
 			ctx.fill();
 			ctx.restore();
 		} else {
-			ctx.save();
-			ctx.beginPath();
-			
 			let bodyDimension = this.dimension*2;
 			let armDimensionX = bodyDimension*0.13*(6/5);
 			let armDimensionY = bodyDimension*0.35*(6/5);
 			let legDimensionX = bodyDimension*0.16*(6/5);
 			let legDimensionY = bodyDimension*0.3*(6/5);
 			
+			ctx.save();
+			
+			//BODY
+			ctx.translate(this.x,this.y);
+			ctx.drawImage(this.bodyImg,-bodyDimension/2,-bodyDimension/2,bodyDimension,bodyDimension);
+			ctx.setTransform(1, 0, 0, 1, 0, 0);
+			//ARM DX
+			ctx.translate(this.x-armDimensionX*(5/4),this.y-armDimensionY/5);
+			ctx.rotate(this.angle);
+			ctx.translate(0,armDimensionY/4);
+			ctx.drawImage(this.rightArmImg,-armDimensionX/2,-armDimensionY/2,armDimensionX,armDimensionY);
+			ctx.setTransform(1, 0, 0, 1, 0, 0);
+			//ARM SX
+			ctx.translate(this.x+armDimensionX*(5/4),this.y-armDimensionY/5);
+			ctx.rotate(-this.angle);
+			ctx.translate(0,armDimensionY/4);
+			ctx.drawImage(this.leftArmImg,-armDimensionX/2,-armDimensionY/2,armDimensionX,armDimensionY);
+			ctx.setTransform(1, 0, 0, 1, 0, 0);
+			//LEG DX
+			ctx.translate(this.x-2*legDimensionX*(7/16),this.y+bodyDimension*(11/24));
+			ctx.rotate(this.angle);
+			ctx.translate(0,legDimensionY/4);
+			ctx.drawImage(this.rightLegImg,-legDimensionX/2,-legDimensionY/2,legDimensionX,legDimensionY);
+			ctx.setTransform(1, 0, 0, 1, 0, 0);
+			//LEG SX
+			ctx.translate(this.x+2*legDimensionX*(7/16),this.y+bodyDimension*(11/24));
+			ctx.rotate(-this.angle);
+			ctx.translate(0,legDimensionY/4);
+			ctx.drawImage(this.leftLegImg,-legDimensionX/2,-legDimensionY/2,legDimensionX,legDimensionY);
+			
+			ctx.restore();
+			
+			/*
+			ctx.save();
 			ctx.translate(this.x,this.y);
 			//BODY
 			ctx.drawImage(this.bodyImg,-bodyDimension/2,-bodyDimension/2,bodyDimension,bodyDimension);
@@ -102,14 +132,9 @@ class Jumper{
 			ctx.rotate(-this.angle);
 			ctx.translate(0,legDimensionY/4);
 			ctx.drawImage(this.leftLegImg,-legDimensionX/2,-legDimensionY/2,legDimensionX,legDimensionY);
-			/*
-			ctx.translate(this.x,this.y);
 			
-			ctx.rotate(this.angle);
-			ctx.drawImage(this.bodyImg,-this.dimension/2,-this.dimension/2,this.dimension,this.dimension);
-			ctx.rotate(-this.angle);
-			*/
 			ctx.restore();
+			*/
 		}
 		
 	}
@@ -119,6 +144,8 @@ class Jumper{
 		
 		this.x = this.x*ratio;
 		this.y = this.y*ratio;
+		this.startingX = this.startingX*ratio;
+		this.startingY = this.startingY*ratio;
 		this.velocity = this.velocity*ratio;
 		this.gravityUnit = this.gravityUnit*ratio;
 		this.minHeight = this.minHeight*ratio;
